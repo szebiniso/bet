@@ -4,18 +4,16 @@ import { Modal } from 'antd'
 
 type Props = {
     onClick: () => void
-    isSimpleModal?: boolean
-    description?: string
-    confirmBtnTitle?: string
 }
 
-const CustomModal = create<Props>(({ onClick, isSimpleModal, ...props }) => {
-    const [balanceValue, setBalanceValue] = useState<string | null>()
+const BalanceModal = create<Props>(({ ...props }) => {
+    const [balanceValue, setBalanceValue] = useState<number | null>()
+    const balance = localStorage.getItem('balance') || 0
     const modal = useModal()
     const handleAdd = () => {
         if (balanceValue) {
-            localStorage.setItem('balance', balanceValue)
-            hide(CustomModal)
+            localStorage.setItem('balance', String(+balance + balanceValue))
+            hide(BalanceModal)
             setBalanceValue(null)
         }
     }
@@ -23,17 +21,17 @@ const CustomModal = create<Props>(({ onClick, isSimpleModal, ...props }) => {
     return (
         <Modal
             {...muiDialog(modal)}
-            onCancel={() => hide(CustomModal)}
+            onCancel={() => hide(BalanceModal)}
             onOk={handleAdd}
             {...props}
         >
-            <h2>Your current balance</h2>
+            <h2>Set balance</h2>
             <input
                 type="number"
-                onChange={(e) => setBalanceValue(e.target.value)}
+                onChange={(e) => setBalanceValue(+e.target.value)}
             />
         </Modal>
     )
 })
 
-export default CustomModal
+export default BalanceModal

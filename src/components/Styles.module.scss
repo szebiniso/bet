@@ -1,11 +1,36 @@
-.form {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  padding-top: 50px;
+.wrapper {
+  padding: 30px 0 10px;
+  &__form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
     &__buttons {
       display: flex;
     }
+  }
+
+  .result {
+    width: 100%;
+    &__content {
+      z-index: 999;
+
+      &__text {
+        font-size: 20px;
+        &__value {
+          font-size: 22px;
+          font-weight: bold;
+        }
+      }
+      &__final {
+        font-size: 30px;
+        color: coral;
+        font-weight: bold;
+      }
+    }
+    &__count {
+      font-size: 40px;
+    }
+  }
 }
